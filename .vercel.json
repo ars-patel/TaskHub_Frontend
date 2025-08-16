@@ -1,9 +1,12 @@
 {
-  "builds": [
-    { "src": "package.json", "use": "@vercel/static-build" }
-  ],
-  "routes": [
-    { "src": "/(.*)", "dest": "/index.html" }
-  ],
-  "outputDirectory": "dist"
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://taskhub-backend-nvrf.onrender.com"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
