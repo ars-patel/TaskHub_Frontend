@@ -1,4 +1,4 @@
-export const BASE_URL = "https://taskhub-backend-nvrf.onrender.com";
+export const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const API_PATHS = {
   AUTH: {
