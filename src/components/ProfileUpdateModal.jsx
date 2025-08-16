@@ -8,12 +8,11 @@ const ProfileUpdateModal = ({ onClose }) => {
   const { user, updateUser } = useContext(UserContext);
 
   const [name, setName] = useState(user?.name || "");
-  const [profileImage, setProfileImage] = useState(null); // selected file
+  const [profileImage, setProfileImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(user?.profileImageUrl || "");
 
   const modalRef = useRef();
 
-  // Close modal when clicking outside
   const handleClickOutside = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
       onClose();
@@ -40,21 +39,16 @@ const ProfileUpdateModal = ({ onClose }) => {
       const formData = new FormData();
       formData.append("name", name);
       if (profileImage) {
-        formData.append("profileImage", profileImage); // key must match multer
+        formData.append("profileImage", profileImage);
       }
 
       const response = await axiosInstance.put(
         API_PATHS.AUTH.UPDATE_PROFILE,
         formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
 
-      // Update global user context
       updateUser(response.data);
-
-      // Update preview to permanent URL returned by backend
       setPreviewUrl(response.data.profileImageUrl);
 
       toast.success("Profile updated successfully");
@@ -66,10 +60,10 @@ const ProfileUpdateModal = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div
         ref={modalRef}
-        className="bg-white w-full max-w-md rounded-xl shadow-lg p-6"
+        className="bg-white w-full sm:max-w-md rounded-xl shadow-lg p-6 max-h-[90vh] overflow-y-auto"
       >
         <h2 className="text-lg font-semibold mb-5 border-b pb-3">
           Update Profile
@@ -77,7 +71,7 @@ const ProfileUpdateModal = ({ onClose }) => {
 
         {/* Image Upload */}
         <div className="flex flex-col items-center mb-5">
-          <div className="w-28 h-28 rounded-full overflow-hidden border-2 border-gray-200">
+          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-gray-200">
             <img
               src={previewUrl || "https://via.placeholder.com/150"}
               alt="Profile"
@@ -102,38 +96,38 @@ const ProfileUpdateModal = ({ onClose }) => {
         {/* Name */}
         <label className="text-xs font-medium text-gray-600">Name</label>
         <input
-          className="form-input mb-4"
+          className="form-input mb-4 w-full border rounded-lg px-3 py-2"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
 
-        {/* Email (Disabled) */}
+        {/* Email */}
         <label className="text-xs font-medium text-gray-600">Email</label>
         <input
-          className="form-input mb-4 disabled:!bg-gray-100 disabled:!text-gray-500 disabled:cursor-not-allowed"
+          className="form-input mb-4 w-full border rounded-lg px-3 py-2 disabled:!bg-gray-100 disabled:!text-gray-500 disabled:cursor-not-allowed"
           value={user?.email || ""}
           disabled
         />
 
-        {/* Role (Disabled) */}
+        {/* Role */}
         <label className="text-xs font-medium text-gray-600">Role</label>
         <input
-          className="form-input mb-6 disabled:!bg-gray-100 disabled:!text-gray-500 disabled:cursor-not-allowed"
+          className="form-input mb-6 w-full border rounded-lg px-3 py-2 disabled:!bg-gray-100 disabled:!text-gray-500 disabled:cursor-not-allowed"
           value={user?.role || ""}
           disabled
         />
 
         {/* Buttons */}
-        <div className="flex justify-end gap-3">
+        <div className="flex flex-col sm:flex-row justify-end gap-3">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition cursor-pointer"
+            className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition cursor-pointer w-full sm:w-auto"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 transition cursor-pointer"
+            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 transition cursor-pointer w-full sm:w-auto"
           >
             Save
           </button>
