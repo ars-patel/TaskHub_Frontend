@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
+    }
+  },
+  "include": ["src", "src/auto-imports.d.ts"],
+  "exclude": ["node_modules", "dist"]
+}
