@@ -18,6 +18,7 @@ import MyTasks from "./pages/User/MyTasks";
 import ViewTaskDetails from "./pages/User/ViewTaskDetails";
 import UserProvider, { UserContext } from "./context/userContext";
 import { Toaster } from "react-hot-toast";
+import NoPageFound from './components/NoPageFound';
 
 const App = () => {
   return (
@@ -47,6 +48,7 @@ const App = () => {
             </Route>
 
             <Route path="/" element={<Root />} />
+            <Route path="*" element={<NoPageFound />} />
           </Routes>
         </Router>
       </div>
