@@ -40,23 +40,34 @@ const TaskCard = ({
     }
   };
 
-  const avatarData = (assignedTo || []).filter(Boolean).map((user) => ({
-    name: user?.name || "User",
-    imageUrl: user?.profileImageUrl || null,
-  }));
+  const avatarData = (assignedTo || [])
+    .filter(Boolean)
+    .map((user) => ({
+      name: user?.name || "User",
+      imageUrl: user?.profileImageUrl || null,
+    }));
 
   const isUnassigned = avatarData.length === 0;
-  const isOverdue = dueDate && moment().isAfter(moment(dueDate), "day");
+
+  // ✅ Only overdue if NOT completed
+  const isOverdue =
+    status !== "Completed" &&
+    dueDate &&
+    moment().isAfter(moment(dueDate), "day");
   const overdueDays = isOverdue ? moment().diff(moment(dueDate), "days") : 0;
 
   return (
     <div
       className={`rounded-xl py-4 shadow-md transition cursor-pointer border
-      ${isUnassigned || isOverdue ? "bg-red-50 border-red-400" : "bg-white border-gray-200/50"}`}
+      ${
+        (isUnassigned || isOverdue) && status !== "Completed"
+          ? "bg-red-50 border-red-400"
+          : "bg-white border-gray-200/50"
+      }`}
       onClick={onClick}
     >
       {/* 🔴 Alert if no members assigned */}
-      {isUnassigned && (
+      {isUnassigned && status !== "Completed" && (
         <div className="px-4 pb-2">
           <p className="text-xs font-semibold text-red-600">
             ⚠ This task is unassigned — please assign a member.
@@ -64,7 +75,7 @@ const TaskCard = ({
         </div>
       )}
 
-      {/* 🔴 Alert if overdue */}
+      {/* 🔴 Alert if overdue (but not completed) */}
       {isOverdue && (
         <div className="px-4 pb-2">
           <p className="text-xs font-semibold text-red-600">
