@@ -10,21 +10,21 @@ import InfoCard from "./../../components/cards/InfoCard";
 import { addThousandsSeparator } from "../../utils/helper";
 import { LuArrowRight } from "react-icons/lu";
 import TaskListTable from "./../../components/TaskListTable";
-import CustomPieChart from './../../components/charts/CustomPieChart';
-import CustomBarChart from './../../components/charts/CustomBarChart';
+import CustomPieChart from "./../../components/charts/CustomPieChart";
+import CustomBarChart from "./../../components/charts/CustomBarChart";
 
-const COLORS = ["#8D51FF", "#00B8DB", "#7BCE00"]
+const COLORS = ["#8D51FF", "#00B8DB", "#7BCE00"];
 
 const Dashboard = () => {
   useUserAuth();
 
   const { user } = useContext(UserContext);
-
   const navigate = useNavigate();
 
   const [dashboardData, setDashboardData] = useState(null);
   const [pieChartData, setPieChartData] = useState([]);
   const [barChartData, setBarChartData] = useState([]);
+  const [greeting, setGreeting] = useState(""); // 👉 added state
 
   const prepareChartData = (data) => {
     const taskDistribution = data?.taskDistribution || null;
@@ -35,7 +35,6 @@ const Dashboard = () => {
       { status: "In Progress", count: taskDistribution?.InProgress || 0 },
       { status: "Completed", count: taskDistribution?.Completed || 0 },
     ];
-
     setPieChartData(taskDistributionData);
 
     const PriorityLevelData = [
@@ -43,7 +42,6 @@ const Dashboard = () => {
       { priority: "Medium", count: taskPriorityLevels?.Medium || 0 },
       { priority: "High", count: taskPriorityLevels?.High || 0 },
     ];
-
     setBarChartData(PriorityLevelData);
   };
 
@@ -52,7 +50,6 @@ const Dashboard = () => {
       const response = await axiosInstance.get(
         API_PATHS.TASKS.GET_DASHBOARD_DATA
       );
-
       if (response.data) {
         setDashboardData(response.data);
         prepareChartData(response.data?.charts || null);
@@ -66,16 +63,35 @@ const Dashboard = () => {
     navigate("/admin/tasks");
   };
 
+  // 👉 greeting function
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 12) return "Good Morning";
+    if (hour >= 12 && hour < 17) return "Good Afternoon";
+    if (hour >= 17 && hour < 21) return "Good Evening";
+    return "Good Night";
+  };
+
   useEffect(() => {
     getDashboardData();
-    return () => {};
+    setGreeting(getGreeting()); // set greeting on mount
+
+    // optional: auto update greeting every minute
+    const id = setInterval(() => {
+      setGreeting(getGreeting());
+    }, 60 * 1000);
+
+    return () => clearInterval(id);
   }, []);
+
   return (
     <DashboardLayout activeMenu="Dashboard">
       <div className="card my-5">
         <div>
           <div className="col-span-3">
-            <h2 className="text-xl md:text-2xl">Good Morning! {user?.name}</h2>
+            <h2 className="text-xl md:text-2xl">
+              {greeting}! {user?.name}
+            </h2>
             <p className="text-xs md:text-[13px] text-gray-400 mt-1.5">
               {moment().format("dddd Do MMM YYYY")}
             </p>
@@ -90,7 +106,6 @@ const Dashboard = () => {
             )}
             color="bg-primary"
           />
-
           <InfoCard
             label="Pending Tasks"
             value={addThousandsSeparator(
@@ -116,17 +131,12 @@ const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-4 md:my-6">
-
         <div>
           <div className="card">
             <div className="flex items-center justify-between">
               <h5 className="font-medium">Task Distribution</h5>
             </div>
-
-            <CustomPieChart
-            data={pieChartData}
-            colors={COLORS}
-            />
+            <CustomPieChart data={pieChartData} colors={COLORS} />
           </div>
         </div>
 
@@ -135,26 +145,19 @@ const Dashboard = () => {
             <div className="flex items-center justify-between">
               <h5 className="font-medium">Task Priority Levels</h5>
             </div>
-
-            <CustomBarChart
-            data={barChartData}
-            colors={COLORS}
-            />
+            <CustomBarChart data={barChartData} colors={COLORS} />
           </div>
         </div>
-
 
         <div className="md:col-span-2">
           <div className="card">
             <div className="flex items-center justify-between">
               <h5 className="text-lg">Recent Tasks</h5>
-
               <button className="card-btn" onClick={onSeeMore}>
                 See All
                 <LuArrowRight className="text-base" />
               </button>
             </div>
-
             <TaskListTable tableData={dashboardData?.recentTasks || []} />
           </div>
         </div>
