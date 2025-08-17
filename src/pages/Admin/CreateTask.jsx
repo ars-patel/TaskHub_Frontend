@@ -269,6 +269,7 @@ const CreateTask = () => {
                     handleValueChange("dueDate", target.value)
                   }
                   type="date"
+                  min={moment().format("YYYY-MM-DD")} 
                 />
               </div>
 
