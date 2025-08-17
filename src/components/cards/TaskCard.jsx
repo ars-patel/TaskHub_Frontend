@@ -46,11 +46,13 @@ const TaskCard = ({
   }));
 
   const isUnassigned = avatarData.length === 0;
+  const isOverdue = dueDate && moment().isAfter(moment(dueDate), "day");
+  const overdueDays = isOverdue ? moment().diff(moment(dueDate), "days") : 0;
 
   return (
     <div
       className={`rounded-xl py-4 shadow-md transition cursor-pointer border
-      ${isUnassigned ? "bg-red-50 border-red-400" : "bg-white border-gray-200/50"}`}
+      ${isUnassigned || isOverdue ? "bg-red-50 border-red-400" : "bg-white border-gray-200/50"}`}
       onClick={onClick}
     >
       {/* 🔴 Alert if no members assigned */}
@@ -58,6 +60,15 @@ const TaskCard = ({
         <div className="px-4 pb-2">
           <p className="text-xs font-semibold text-red-600">
             ⚠ This task is unassigned — please assign a member.
+          </p>
+        </div>
+      )}
+
+      {/* 🔴 Alert if overdue */}
+      {isOverdue && (
+        <div className="px-4 pb-2">
+          <p className="text-xs font-semibold text-red-600">
+            ⚠ Task is overdue by {overdueDays} day{overdueDays > 1 ? "s" : ""}
           </p>
         </div>
       )}
