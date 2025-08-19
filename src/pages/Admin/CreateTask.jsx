@@ -12,7 +12,8 @@ import TodoListInput from "./../../components/inputs/TodoListInput";
 import AddAttachmentsInput from "./../../components/inputs/AddAttachmentsInput";
 import moment from "moment";
 import Modal from "./../../components/Modal";
-import DeleteAlert from './../../components/DeleteAlert';
+import DeleteAlert from "./../../components/DeleteAlert";
+import ChatPage from "./../../components/Comment";
 
 const CreateTask = () => {
   const location = useLocation();
@@ -269,7 +270,7 @@ const CreateTask = () => {
                     handleValueChange("dueDate", target.value)
                   }
                   type="date"
-                  min={moment().format("YYYY-MM-DD")} 
+                  min={moment().format("YYYY-MM-DD")}
                 />
               </div>
 
@@ -339,6 +340,13 @@ const CreateTask = () => {
           onDelete={() => deleteTask()}
         />
       </Modal>
+
+      {/* ✅ Right side - Comment Section (only when updating task) */}
+      {taskId && (
+        <div className="col-span-1">
+          <ChatPage taskId={taskId} />
+        </div>
+      )}
     </DashboardLayout>
   );
 };

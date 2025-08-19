@@ -6,11 +6,9 @@ import axiosInstance from "./../utils/axiosinstance";
 
 const ProfileUpdateModal = ({ onClose }) => {
   const { user, updateUser } = useContext(UserContext);
-
   const [name, setName] = useState(user?.name || "");
   const [profileImage, setProfileImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(user?.profileImageUrl || "");
-
   const modalRef = useRef();
 
   const handleClickOutside = (e) => {
@@ -50,7 +48,6 @@ const ProfileUpdateModal = ({ onClose }) => {
 
       updateUser(response.data);
       setPreviewUrl(response.data.profileImageUrl);
-
       toast.success("Profile updated successfully");
       onClose();
     } catch (error) {
@@ -60,18 +57,18 @@ const ProfileUpdateModal = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-[2000] min-h-screen overscroll-behavior-none">
       <div
         ref={modalRef}
-        className="bg-white w-full sm:max-w-md rounded-xl shadow-lg p-6 max-h-[90vh] overflow-y-auto"
+        className="bg-white w-full max-w-[90vw] sm:max-w-md rounded-lg shadow-lg p-4 h-auto max-h-[calc(100dvh-1rem)] overflow-y-auto"
       >
-        <h2 className="text-lg font-semibold mb-5 border-b pb-3">
+        <h2 className="text-lg font-medium text-slate-600 mb-4 border-b border-gray-100 pb-2">
           Update Profile
         </h2>
 
         {/* Image Upload */}
-        <div className="flex flex-col items-center mb-5">
-          <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-gray-200">
+        <div className="flex flex-col items-center mb-4">
+          <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-gray-100 shadow-sm">
             <img
               src={previewUrl || "https://via.placeholder.com/150"}
               alt="Profile"
@@ -80,7 +77,7 @@ const ProfileUpdateModal = ({ onClose }) => {
           </div>
           <label
             htmlFor="profileImage"
-            className="mt-3 px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg shadow hover:bg-blue-700 transition cursor-pointer"
+            className="mt-2 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition cursor-pointer shadow-sm"
           >
             Change Photo
           </label>
@@ -94,40 +91,40 @@ const ProfileUpdateModal = ({ onClose }) => {
         </div>
 
         {/* Name */}
-        <label className="text-xs font-medium text-gray-600">Name</label>
+        <label className="text-xs font-medium text-slate-600">Name</label>
         <input
-          className="form-input mb-4 w-full border rounded-lg px-3 py-2"
+          className="form-input w-full px-3 py-2 text-sm text-slate-600 border border-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm mb-3"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
 
         {/* Email */}
-        <label className="text-xs font-medium text-gray-600">Email</label>
+        <label className="text-xs font-medium text-slate-600">Email</label>
         <input
-          className="form-input mb-4 w-full border rounded-lg px-3 py-2 disabled:!bg-gray-100 disabled:!text-gray-500 disabled:cursor-not-allowed"
+          className="form-input w-full px-3 py-2 text-sm text-slate-600 border border-gray-100 rounded-md !bg-gray-200 text-gray-500 cursor-not-allowed mb-3"
           value={user?.email || ""}
           disabled
         />
 
         {/* Role */}
-        <label className="text-xs font-medium text-gray-600">Role</label>
+        <label className="text-xs font-medium text-slate-600">Role</label>
         <input
-          className="form-input mb-6 w-full border rounded-lg px-3 py-2 disabled:!bg-gray-100 disabled:!text-gray-500 disabled:cursor-not-allowed"
+          className="form-input w-full px-3 py-2 text-sm text-slate-600 border border-gray-100 rounded-md !bg-gray-200 text-gray-500 cursor-not-allowed mb-4"
           value={user?.role || ""}
           disabled
         />
 
         {/* Buttons */}
-        <div className="flex flex-col sm:flex-row justify-end gap-3">
+        <div className="flex flex-col sm:flex-row justify-end gap-2">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-sm font-medium text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition cursor-pointer w-full sm:w-auto"
+            className="px-3 py-1.5 text-sm font-medium text-slate-600 bg-gray-100 rounded-md hover:bg-gray-200 transition cursor-pointer w-full sm:w-auto"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg shadow hover:bg-blue-700 transition cursor-pointer w-full sm:w-auto"
+            className="add-btn px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition cursor-pointer w-full sm:w-auto"
           >
             Save
           </button>

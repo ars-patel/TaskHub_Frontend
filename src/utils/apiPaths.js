@@ -5,7 +5,7 @@ export const API_PATHS = {
     REGISTER: "/api/auth/register",
     LOGIN: "/api/auth/login",
     GET_PROFILE: "/api/auth/profile",
-    UPDATE_PROFILE: "api/auth/profileUpdate"
+    UPDATE_PROFILE: "api/auth/profileUpdate",
   },
 
   USERS: {
@@ -29,12 +29,29 @@ export const API_PATHS = {
     UPDATE_TODO_CHECKLIST: (taskId) => `/api/tasks/${taskId}/todo`,
   },
 
+  COMMENTS: {
+    GET_COMMENTS_BY_TASK: (taskId) => `/api/comments/${taskId}/comments`,
+    ADD_COMMENT: (taskId) => `/api/comments/${taskId}/comments`,
+    EDIT_COMMENT: (taskId, commentId) =>
+      `/api/comments/${taskId}/comments/${commentId}`,
+    DELETE_COMMENT: (taskId, commentId) =>
+      `/api/comments/${taskId}/comments/${commentId}`,
+    ADD_REACTION: (taskId, commentId) =>
+      `/api/comments/${taskId}/comments/${commentId}/reactions`,
+    DELETE_ALL_COMMENTS: (taskId) => `/api/comments/${taskId}/comments`,
+
+    // Updated attachment routes (task attachments, no commentId)
+    // ADD_ATTACHMENT: (taskId) => `/api/tasks/${taskId}/attachments`,
+    // UPDATE_ATTACHMENT: (taskId, attachmentId) => `/api/tasks/${taskId}/attachments/${attachmentId}`,
+    // DELETE_ATTACHMENT: (taskId, attachmentId) => `/api/tasks/${taskId}/attachments/${attachmentId}`,
+  },
+
   REPORTS: {
     EXPORT_TASKS: "/api/reports/export/tasks",
     EXPORT_USERS: "/api/reports/export/users",
   },
 
   IMAGE: {
-    UPLOAD_IMAGE: "/api/auth/upload-image"
-  }
+    UPLOAD_IMAGE: "/api/auth/upload-image",
+  },
 };

@@ -6,6 +6,7 @@ import DashboardLayout from "./../../components/layouts/DashboardLayout";
 import AvatarGroup from "./../../components/AvatarGroup";
 import moment from "moment";
 import { LuSquareArrowOutUpRight } from "react-icons/lu";
+import ChatPage from './../../components/Comment';
 
 const ViewTaskDetails = () => {
   const { id } = useParams();
@@ -167,6 +168,7 @@ const ViewTaskDetails = () => {
           </div>
         )}
       </div>
+      <ChatPage taskId={id}/>
     </DashboardLayout>
   );
 };
