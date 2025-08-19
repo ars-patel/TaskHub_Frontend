@@ -95,7 +95,7 @@ const ChatPage = ({ taskId }) => {
   return (
     <div className="form-card mt-5 h-full flex flex-col bg-white border border-gray-100 shadow-sm rounded-lg">
       {/* Header */}
-      <div className="bg-white text-slate-600 p-4 border-b border-gray-100 flex justify-between items-center">
+      <div className="bg-white text-slate-600 p-4 border-b border-gray-100 flex justify-between items-center sticky top-0 z-50">
         <h2 className="text-xl font-medium">Task Chat</h2>
         {user.role === "admin" && (
           <button
@@ -230,7 +230,7 @@ const ChatPage = ({ taskId }) => {
       </div>
 
       {/* Input Section */}
-      <div className="p-4 border-t border-gray-100 relative">
+      <div className="p-4 border-t border-gray-100 relative mb-3">
         <div className="flex items-center bg-white rounded-md border border-gray-100 px-3 py-2 gap-2 shadow-sm">
           {/* Emoji Button */}
           <button

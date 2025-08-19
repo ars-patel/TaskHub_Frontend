@@ -119,7 +119,7 @@ const SignUp = () => {
               value={adminInviteToken}
               onChange={({ target }) => setAdminInviteToken(target.value)}
               label="Admin Invite Token"
-              placeholder="6 Digit Code"
+              placeholder="f2d9e48ce76f62c4XXXXXX"
               type="text"
             />
           </div>

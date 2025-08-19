@@ -109,7 +109,7 @@ const ManageTasks = () => {
         </div>
 
         {/* Task List */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4 mr-6">
           {filteredTasks.length > 0 ? (
             filteredTasks.map((item) => (
               <TaskCard
