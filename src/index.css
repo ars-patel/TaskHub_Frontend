@@ -57,3 +57,9 @@
 .user-card {
   @apply bg-white p-4 rounded-xl shadow-md shadow-gray-100 border border-gray-200/50;
 }
+
+@media (max-width: 400px) {
+  .custom-mr {
+    margin-right: 3.75rem; /* mr-15 equivalent */
+  }
+}
