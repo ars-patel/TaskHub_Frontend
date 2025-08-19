@@ -101,7 +101,7 @@ const ProfileUpdateModal = ({ onClose }) => {
         {/* Email */}
         <label className="text-xs font-medium text-slate-600">Email</label>
         <input
-          className="form-input w-full px-3 py-2 text-sm text-slate-600 border border-gray-100 rounded-md !bg-gray-200 text-gray-500 cursor-not-allowed mb-3"
+          className="form-input w-full px-3 py-2 text-sm text-slate-600 border border-gray-100 rounded-md !bg-gray-200 cursor-not-allowed mb-3"
           value={user?.email || ""}
           disabled
         />
@@ -109,7 +109,7 @@ const ProfileUpdateModal = ({ onClose }) => {
         {/* Role */}
         <label className="text-xs font-medium text-slate-600">Role</label>
         <input
-          className="form-input w-full px-3 py-2 text-sm text-slate-600 border border-gray-100 rounded-md !bg-gray-200 text-gray-500 cursor-not-allowed mb-4"
+          className="form-input w-full px-3 py-2 text-sm text-slate-600 border border-gray-100 rounded-md !bg-gray-200 cursor-not-allowed mb-4"
           value={user?.role || ""}
           disabled
         />
