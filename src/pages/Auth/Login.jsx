@@ -25,11 +25,13 @@ const Login = () => {
 
     if (!validateEmail(email)) {
       setError("Please Enter the valid email address.");
+      setLoading(false);
       return;
     }
 
     if (!password) {
       setError("Please Enter the Password");
+      setLoading(false);
       return;
     }
 
@@ -63,6 +65,7 @@ const Login = () => {
           );
         } else {
           setError("Something went wrong. Please try again.");
+          setLoading(false)
         }
       }
     }, 1500);

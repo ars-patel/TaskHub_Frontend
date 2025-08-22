@@ -28,16 +28,19 @@ const SignUp = () => {
 
     if (!validateEmail(email)) {
       setError("Please Enter the valid email address.");
+      setLoading(false);
       return;
     }
 
     if (!fullName) {
       setError("Please Enter full name.");
+      setLoading(false);
       return;
     }
 
     if (!password) {
       setError("Please Enter the Password");
+      setLoading(false);
       return;
     }
 
@@ -79,6 +82,7 @@ const SignUp = () => {
       } else {
         setError("Something went wrong. Please try again.");
       }
+      setLoading(false);
     } finally {
       setLoading(false); // Stop loading
     }

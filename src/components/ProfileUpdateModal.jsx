@@ -3,12 +3,14 @@ import { API_PATHS } from "../utils/apiPaths";
 import { UserContext } from "../context/userContext";
 import toast from "react-hot-toast";
 import axiosInstance from "./../utils/axiosinstance";
+import { FaSpinner } from "react-icons/fa";
 
 const ProfileUpdateModal = ({ onClose }) => {
   const { user, updateUser } = useContext(UserContext);
   const [name, setName] = useState(user?.name || "");
   const [profileImage, setProfileImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(user?.profileImageUrl || "");
+  const [loading, setLoading] = useState(false);
   const modalRef = useRef();
 
   const handleClickOutside = (e) => {
@@ -33,6 +35,7 @@ const ProfileUpdateModal = ({ onClose }) => {
   };
 
   const handleSave = async () => {
+    setLoading(true);
     try {
       const formData = new FormData();
       formData.append("name", name);
@@ -46,13 +49,17 @@ const ProfileUpdateModal = ({ onClose }) => {
         { headers: { "Content-Type": "multipart/form-data" } }
       );
 
-      updateUser(response.data);
-      setPreviewUrl(response.data.profileImageUrl);
-      toast.success("Profile updated successfully");
-      onClose();
+      setTimeout(() => {
+        updateUser(response.data);
+        setPreviewUrl(response.data.profileImageUrl);
+        toast.success("Profile updated successfully");
+        setLoading(false);
+        onClose();
+      }, 1000);
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.message || "Failed to update profile");
+      setLoading(false);
     }
   };
 
@@ -124,9 +131,10 @@ const ProfileUpdateModal = ({ onClose }) => {
           </button>
           <button
             onClick={handleSave}
+            disabled={loading}
             className="add-btn px-3 py-1.5 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition cursor-pointer w-full sm:w-auto"
           >
-            Save
+            {loading ? <FaSpinner className="animate-spin" /> : "Save"}
           </button>
         </div>
       </div>
