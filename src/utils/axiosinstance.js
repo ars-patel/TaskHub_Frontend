@@ -6,7 +6,7 @@ const axiosInstance = axios.create({
   timeout: 10000, // 10 seconds
   headers: {
     "Content-Type": "application/json",
-    Accept: "application/json",
+    // Accept header not required; let browser default
   },
 });
 
@@ -27,12 +27,16 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response) {
-      // Unauthorized: redirect to login but avoid reload if not needed
+      // Unauthorized: clear tokens and redirect to login
       if (error.response.status === 401) {
-        console.warn("Unauthorized: Please log in.");
-      }
-      // Server error
-      else if (error.response.status === 500) {
+        try {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+        } catch {}
+        if (window.location.pathname !== "/login") {
+          window.location.href = "/login";
+        }
+      } else if (error.response.status === 500) {
         console.error("Server error, please try again later.");
       }
     } else if (error.code === "ECONNABORTED") {
