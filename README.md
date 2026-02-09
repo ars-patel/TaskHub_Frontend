@@ -1,12 +1,88 @@
-# React + Vite
+# TaskHub Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive task management dashboard built with React and Vite.
 
-Currently, two official plugins are available:
+## 🚀 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Framework**: [React 19](https://react.dev/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **State Management**: React Context API
+- **Routing**: [React Router v7](https://reactrouter.com/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Charts**: [Recharts](https://recharts.org/)
+- **Icons**: [React Icons](https://react-icons.github.io/react-icons/)
+- **HTTP Client**: [Axios](https://axios-http.com/)
 
-## Expanding the ESLint configuration
+## 📁 Folder Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+frontend/
+├── public/             # Static assets (favicons, etc.)
+├── src/
+│   ├── components/     # Reusable UI components
+│   ├── context/        # Global state (AuthContext, etc.)
+│   ├── hooks/          # Custom React hooks
+│   ├── pages/          # Page-level components (Dashboard, Login, etc.)
+│   ├── routes/         # Routing configuration
+│   ├── utils/          # Helper functions and API configurations
+│   ├── App.jsx         # Main App component
+│   └── main.jsx        # Entry point
+├── .env                # Environment variables (private)
+└── vite.config.js      # Vite configuration
+```
+
+## 🛠️ Installation
+
+```bash
+# Navigate to the frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+```
+
+## 🏃 Running the Application
+
+### Development Mode
+
+Runs the app in development mode with Hot Module Replacement (HMR).
+
+```bash
+npm run dev
+```
+
+### Production Build
+
+Builds the app for production to the `dist` folder.
+
+```bash
+npm run build
+```
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+## 🔗 API Integration
+
+The frontend communicates with the backend via Axios. Configuration for the base URL can be found in `src/utils/`.
+
+- **API Base URL**: Configured via the `VITE_BACKEND_URL` environment variable.
+
+## ⚙️ Environment Variables
+
+Create a `.env` file in the root of the `frontend/` directory based on `.env.example`.
+
+| Variable | Description |
+|----------|-------------|
+| `VITE_BACKEND_URL` | Base URL for the backend API |
+| `VITE_APP_NAME` | Name of the application |
+| `VITE_ENV` | Current environment (development/production) |
+
+## 📦 Deployment Notes
+
+- This project is optimized for deployment on platforms like **Vercel**, **Netlify**, or **Hostinger**.
+- Ensure `VITE_BACKEND_URL` is set to your production API URL in your deployment platform's environment settings.
